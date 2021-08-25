@@ -1,0 +1,65 @@
+table, th, td {
+  border: 3px solid gray;
+  border-collapse: collapse;
+  width: 1000px;
+}
+th{
+
+  border: 1px solid black;
+  width: 350px;
+
+}
+td {
+  
+  font-family: monospace;
+}
+.PatientDetails.table.center {
+  margin-left: 250px; 
+  margin-top: 100px;
+  margin-right: auto;
+  
+}
+
+.PatientDetails,.AddPatientDetails{
+  margin-left: 250px; 
+  margin-top: 40px;
+  margin-right: auto;
+    
+
+}
+.PD{
+  background-color:yellow;
+  max-height: 2000px;
+  border: 3pt red;
+  max-width: 1000px;
+  text-align: center;
+}
+.PatientDetails.PatientData.center {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
+.PatientDetails.PatientData{
+  align-items: center;
+  padding: 500px;
+}
+.PatientDetails.table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    width: 10px;;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+#table2{
+  position: relative;
+  max-width: fit-content;
+}

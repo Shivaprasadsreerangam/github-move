@@ -1,0 +1,65 @@
+.container {
+    padding: 16px;
+  }
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: montserrat,sans-serif;
+}
+  .App{
+    height: 100vh;
+    display: flex;
+    align-items:left;  
+    justify-content: center;
+   
+}
+.imag1{
+    height: 20vh;
+    display:contents;
+    align-items:left;  
+    justify-content:initial;
+    background-color:tomato;
+}
+.signup.form-inner{
+  padding-inline-start: 852px;
+  position:fixed;
+  display:initial;
+  z-index: 1;
+  border: 1px solid #666;
+  width: 500px;
+}
+.SignUp.input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  .SignUp.input[type=password]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 40px 40px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 200%;
+  }
+  
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+  
+  
+  
+ 

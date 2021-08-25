@@ -1,0 +1,84 @@
+.description{
+    padding-left: 0%;
+    position:relative;
+    display:initial;
+    background-color:tomato;
+    
+    z-index: 1;
+  }
+
+    card {
+        margin: 0;
+        padding: 0;
+        width: 'inherit';
+        height: 'inherit';
+        position: 'absolute';
+        top: '50%';
+        left: '50%';
+        transform: 'translate(-50%, -50%)';
+    }
+    card_img {
+        Width: '100%';
+        Height: '100%';
+        position: 'relative';
+        top: '50%';
+        left: '50%';
+        transform: 'translate(-50%, -50%)';
+    }
+
+
+#submit10{
+    position: absolute;
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+  width: 200px;
+  right:100px;
+  top:600px;
+  
+}
+
+#submit4{
+    position: absolute;
+    top:510px;
+    width: 380px;
+    right: 20px;
+   
+  
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 4px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #submit5{
+    position: absolute;
+    top:100px;
+    width: 380px;
+    right: 750px;
+   
+  
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 4px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #center123{
+     
+    position: absolute;
+    top:10px;
+    left:300px;
+    
+  }

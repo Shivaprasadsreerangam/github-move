@@ -1,0 +1,21 @@
+.Welcome{
+    margin-left: 300px; 
+    margin-top: 20px;
+    margin-right: auto}
+
+.AddPatientDetails{
+    margin-left: 300px; 
+    margin-top: 40px;
+    margin-right: auto;
+      
+    
+    }
+    .AddPatientDetails.input[type=text], select {
+        width: 60px;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }

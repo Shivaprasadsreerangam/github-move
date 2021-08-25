@@ -1,0 +1,79 @@
+
+.voiceOrder{
+  position: absolute;
+  min-width: 300px;
+  min-height: 500px;
+  left:10px;
+  top:90px;
+  background-color:whitesmoke;
+  border-color: honeydew;
+  width: 800px;
+}
+.LoginPage{
+  position: absolute;
+  right: 10px;
+  min-width: 400px;
+  min-height: 500px;
+  background-color:whitesmoke;
+  border-color: honeydew;
+  width: 350px;
+  height: auto;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid wheat;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+#LoginUsername {
+  width: 350px;
+  min-height: fit-content;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 4px solid #ccc;
+  border-radius: 10px; 
+  box-sizing: border-box;
+ 
+}
+#LoginPassword{
+  width: 350px;
+  min-height: fit-content;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 4px solid #ccc;
+  border-radius: 10px; 
+  box-sizing: border-box;
+}
+/* select
+{
+  width: 700px;
+} */
+
+
+button[type=submit] {
+  width: 350px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: 4px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#sounds{
+  position: relative;
+  width: 15px;
+    border: 0px solid black;
+}
+
+
+
+ 
+
+
+  
+
+
+
