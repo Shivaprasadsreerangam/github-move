@@ -24,7 +24,10 @@ class Articulation extends Component
         articulationSoundsAges:[],
         soundsNotice:'',
         soundsDetails:[],
-        PatientSoundDisorderDetails:''
+        PatientSoundDisorderDetails:'',
+        Substitution_processes:'',
+        Syllable_Structure_processes:'',
+        Assimilation_processes: ''
     }
 
 
@@ -387,23 +390,20 @@ class Articulation extends Component
                 </select>
                 {(this.state.errors_pattern ==='Yes')?
                  ( <div>
-                 <select name="errors_pattern_1" value={this.state.errors_pattern_1 } id ="APDtext"
+                   <b><label>Substitution Processes:replacing one class of sounds for another class of sounds</label></b>
+                 <select name="Substitution_processes" value={this.state.Substitution_processes } id ="APDtext"
                  onChange={e=>{
                    this.setState(
                        {
-                        errors_pattern_1 :e.target.value
+                        Substitution_processes :e.target.value
      
                        } );
                    }} >
-                     <option>Select error pattern </option>
-                    <option>Phonological process list</option> 
-                    <option>Distinctive feature list</option> 
-                    <option>Phonlogical disorder list- age wise</option> 
-                    <option>Stimulability</option> 
-                    <option>Consistent of errors</option> 
-                    <option>Intelligibility rating scale (7 point rating scale)</option> 
-                    <option>Rate psychological/ environmental cause -0-5 </option> 
-                    <option>Rate of speech: Normal, </option> 
+                    <option>Select error pattern </option>
+                    <option>Gliding </option> 
+                    <option>Backing </option> 
+                    <option>Vowelization</option> 
+                    <option>Stopping </option>  
                     
                   </select>
                   </div>
