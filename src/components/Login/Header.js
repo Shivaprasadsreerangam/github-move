@@ -12,7 +12,7 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
+import { FaList} from "react-icons/fa";//, FaRegHeart 
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
@@ -86,7 +86,7 @@ class Header extends Component {
               Home 
               </Link>
               </MenuItem>
-              {(global.role=='spiel')?(<div>
+              {(global.role==='spiel')?(<div>
                 <MenuItem icon={<RiPencilLine />}>
                 <Link to='/Signup' >
                    Create Account
@@ -111,7 +111,7 @@ class Header extends Component {
               
               <MenuItem icon={<FaList />}  >
               <Link to='/PatientDetails' >
-              PatientDetails
+             PatientDetails
               </Link>
               </MenuItem>
               <MenuItem icon={<FaList />}>

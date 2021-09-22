@@ -1,5 +1,8 @@
 import { Component } from "react";
 import Axios from "axios";
+import SpinWheelGame from "./spinWheelGame";
+import MemoryGame from "./MemoryGame";
+import memoryCardGame from "./memoryCardGame";
 
 
 class treatment extends Component {
@@ -10,6 +13,7 @@ class treatment extends Component {
         patient_id:'',
         disorder_id:'',
         treatmentSteps:[],
+        button_value:'',
     }
   
     Axios.post("http://192.168.0.18:3002/treatment",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
@@ -25,13 +29,15 @@ class treatment extends Component {
    
     }
 
-    onClickListener=() =>{
+    onClickListener=(e) =>{
      
        
         this.setState(
             {
               patient_id:this.props.patient_id,
-              disorder:this.props.disorder_id
+              disorder:this.props.disorder_id,
+              button_value:e.target.value,
+              
 
             } );
             //alert(this.props.patient_id,this.props.disorder_id)
@@ -48,11 +54,12 @@ class treatment extends Component {
         }
     render()
     {
+        
        
         if (!this.state.disorder) {
-        return(<div className='PatientDetails1'><h1>Treatment Page {this.props.disorder_id}</h1>
+        return(<div className='PatientDetails1'><h1>Treatment Page </h1>
               
-
+              
               
               <table align="left" className="left"  > 
 
@@ -61,7 +68,7 @@ class treatment extends Component {
                      
                      <td>{treatment.disorder}</td>
                      <td>{treatment.trt_seq_number}</td>
-                     <td> <button type="submit" id ='submit3' onClick={this.onClickListener}>
+                     <td> <button type="submit" id ='submit3' value={treatment.treatment_name} onClick={this.onClickListener}>
                      {treatment.treatment_name} </button> </td>
                      <td>{treatment.num_sessions}</td>
                      <td>{treatment.completed_date}</td>
@@ -69,7 +76,7 @@ class treatment extends Component {
                   
                 </tr>)}
               
-               </table> 
+               </table>  
 
         
         </div>
@@ -77,12 +84,12 @@ class treatment extends Component {
         
         )
     }
-    else
-    {return(<div className='PatientDetails1'><h1>Treatment Page {this.props.disorder_id}</h1>
+    else if(this.state.button_value==='Spin Wheel Game')
+    {return(<div className='PatientDetails1'>
               
-
+              <SpinWheelGame></SpinWheelGame>
               
-    <table align="left" className="left"  > 
+    {/* <table align="left" className="left"  > 
 
     {this.state.treatmentSteps.map(treatment =>
         <tr>
@@ -97,7 +104,7 @@ class treatment extends Component {
         
       </tr>)}
     
-     </table> 
+     </table>  */}
     
    
       
@@ -113,6 +120,14 @@ class treatment extends Component {
 
 
 )
+    }
+    else if(this.state.button_value==='Memory Game'){
+        return(<div className='PatientDetails1'>
+        {/* <memoryCardGame/> */}
+         <MemoryGame></MemoryGame> 
+        </div>); 
+
+
     }
     }
 }

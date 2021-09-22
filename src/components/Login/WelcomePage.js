@@ -60,7 +60,7 @@ class WelcomePage extends Component {
     }
 
     onClickListener=() =>{
-        Axios.post("http://192.168.0.18:3002/insert",{
+        Axios.post("http://localhost:3002/insert",{
         patient_id:this.props.patient_id,
         first_name:this.props.first_name,
         middle_name:this.props.middle_name,

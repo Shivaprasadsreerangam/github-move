@@ -79,3 +79,10 @@
   top: 600px;
   
 }
+#right {
+  position:absolute;
+  top: 80px;
+  right: 30px;
+  left:500px;
+  min-width: 460px;
+}

@@ -2,7 +2,6 @@ import { Component } from "react";
 import Navbar  from './Navbar';
 import Login from "./Login";
 //import SignUp from './Signup';
-import MainSpiel from './MainSpiel';
 import '../../globalData';
 import "./MainPage.css";
 import SignupForm from "./signupform";

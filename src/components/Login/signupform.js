@@ -3,7 +3,6 @@
  import "./signup.css";
  import Axios from "axios";
  import Multiselect from 'multiselect-react-dropdown';
- import payment from './payment';
  //import Multiselect from 'react-select';
  //import logo from './logo1.png';
  class SignupForm extends Component {
@@ -127,7 +126,7 @@ Axios.post("http://192.168.0.18:3002/disorderdetails",{hospital_id:global.hospit
                   } );
               }}
           /> <br></br>
-          {(global.role=='spiel')?
+          {(global.role==='spiel')?
            (<div> <input  name="hName" placeholder="Enter Hosiptal Name" class="form-control"  type="text" id ="APDtext" 
             onChange={e=>{
               this.setState(

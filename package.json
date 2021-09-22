@@ -1,6 +1,7 @@
 {
   "name": "spiel",
   "version": "0.1.0",
+  "homepage": "http://spiel.org",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
@@ -11,18 +12,23 @@
     "@types/mysql": "^2.15.19",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
+    "emailjs-com": "^3.2.0",
     "install": "^0.13.0",
     "mongoose": "^5.13.3",
     "multiselect-react-dropdown": "^2.0.5",
     "mysql": "^2.18.1",
     "react": "^17.0.2",
     "react-bootstrap": "^0.32.4",
+    "react-circle-modal": "0.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-pro-sidebar": "^0.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select": "^4.3.1",
+    "react-simple-hook-modal": "^1.1.0",
+    "react-tooltip": "^4.2.21",
+    "reactjs-popup": "^2.0.5",
     "web-vitals": "^1.1.2",
     "write-json-file": "^4.3.0"
   },
@@ -31,13 +37,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proxy":"http://localhost:3002"
+    "proxy": "http://localhost:3002"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-      
     ]
   },
   "browserslist": {

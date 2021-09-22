@@ -2,14 +2,13 @@ import React, { Component } from "react";
 //import './login.sass';
 import { isEmail, isEmpty, isLength, isContainWhiteSpace } from './validator';
 import logo from './logo1.png';
-import voice_order from './voice_order.png'
 import "./login.css";
 import PropTypes from 'prop-types';
 import '../../globalData';
 import Axios from 'axios';
 import MainSpiel from './MainSpiel';
 import Navbar from "./Navbar";
-import { BiSliderAlt } from "react-icons/bi";
+
 
 
 
@@ -66,25 +65,37 @@ class Login extends Component {
 
     if (isEmpty(errors)) {
         try{
-            let res= await  Axios.post("http://192.168.0.18:3002/login",{uname: this.state.uname,psw:this.state.psw,});
+            let res= await  Axios.post("http://localhost:3002/login",{uname: this.state.uname,psw:this.state.psw,});
+             if(!res.data[0]){
+                alert("Invalid User name and password");
+             }
+           
             let userName=await res.data[0].name;
             let id=await res.data[0].id;
             let email_id=await res.data[0].email_id;
             let hospital_id=await res.data[0].hospital_id;
             let role=await res.data[0].role;
+        
+            let userExpire= await  Axios.post("http://localhost:3002/userExpire",{uname: this.state.uname,psw:this.state.psw,});
+            if(userExpire.data[0]){
+                alert("user is expired on "+userExpire.data[0].user_expiry_date+". Please contact us for renewl");
+            }
+               
+            else{
             
             global.userName=userName;
             global.id=id;
             global.email_id=email_id;
             global.hospital_id=hospital_id;
             global.role=role;
+            }
              
          }
          catch(e){   
     
          }
 
-         Axios.post("http://192.168.0.18:3002/insertLoginDetail",{login_id:global.id,email_id:global.email_id,hospital_id:global.hospital_id
+         Axios.post("http://localhost:3002/insertLoginDetail",{login_id:global.id,email_id:global.email_id,hospital_id:global.hospital_id
         }).then((response)=>{
             this.setState({PatientDetails:response.data})
         }
@@ -97,12 +108,16 @@ class Login extends Component {
    
       
     } else {
+        
         if(errors.email && errors.password)
             alert(`${errors.email} and ${ errors.password}`);
         else if (errors.email)
           alert(errors.email)
-        else
+        else if(errors.password)
             alert(errors.password);
+        else{
+            alert("Invalid user name or password"); 
+        }
         this.setState({
             errors: errors,
             
@@ -122,7 +137,7 @@ class Login extends Component {
        
         //let errors=[]
         //global.userName=this.state.uname;
-        alert("uname");
+    
       
        let errors=  this.validateLoginForm();
         
@@ -130,11 +145,12 @@ class Login extends Component {
         
         
          
-        // if(errors === true){
-        //     return true;
+         if(errors === true){
+         //  return true;
            
-        //    alert("Invalid user name or password"); 
-        // } else {
+           alert("Invalid user name or password"); 
+         } 
+         //else {
         //     //this.onClickListener(); 
         //     alert(global.userName);
             

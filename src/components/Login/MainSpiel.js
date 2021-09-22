@@ -8,7 +8,6 @@ import AddPatientDetails from './AddPatientDetails';
 import AddPatientDetails_2 from './AddPatientDetails_2';
 import account_details from './account_details';
 import LoginDetails from "./LoginDetails";
-import Axios from "axios";
 //import AddPersonalPatientDetails from './AddPersonalPatientDetails'
 import "./MainSpiel.css";
 import "../../globalData"
