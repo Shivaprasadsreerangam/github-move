@@ -2,6 +2,7 @@ import React from "react";
 import { Component } from "react";
 import Axios from 'axios';
 import emailjs from 'emailjs-com';
+//import smtp from 'smtp.js'
 
 import Popup from "./Popup";
 // import { withRouter } from "react-router-dom";
@@ -130,8 +131,26 @@ class Articulation extends Component {
       // handle error
       alert(error);
     })
-    this.sendanEmail();
+    //this.sendanEmail();
+   // this.sendEmail();
   }
+
+  // sendEmail(subject,to,body){
+    
+  //   /* SmtpJS.com - v3.0.0 */
+  //   let Email = { send: function (a) { return new Promise(function (n, e) { a.nocache = Math.floor(1e6 * Math.random() + 1), a.Action = "Send"; var t = JSON.stringify(a); Email.ajaxPost("https://smtpjs.com/v3/smtpjs.aspx?", t, function (e) { n(e) }) }) }, ajaxPost: function (e, n, t) { var a = Email.createCORSRequest("POST", e); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.onload = function () { var e = a.responseText; null != t && t(e) }, a.send(n) }, ajax: function (e, n) { var t = Email.createCORSRequest("GET", e); t.onload = function () { var e = t.responseText; null != n && n(e) }, t.send() }, createCORSRequest: function (e, n) { var t = new XMLHttpRequest; return "withCredentials" in t ? t.open(e, n, !0) : "undefined" != typeof XDomainRequest ? (t = new XDomainRequest).open(e, n) : t = null, t } };
+
+  //   Email.send({
+  //       SecureToken :'9e7b20ad-0c0a-4928-9f80-834b4826dfbd', //process.env.SECURE_TOKEN, // write your secure token
+  //       To : 'shivaprasad1241@gmail.com', // to include multiple emails you need to mention an array
+  //       From :'smtp.spielISP.com',
+  //       Subject : 'details are added',
+  //       Body : "Please check it"
+  //   })
+  //   .then(message=>{
+  //       // alert(message);
+  //   });
+  // }
   sendanEmail = () => {
     this.state.email_detail.name=this.props.first_name;
     this.state.email_detail.to_email=this.props.email;
@@ -139,15 +158,27 @@ class Articulation extends Component {
     this.state.email_detail.message="Please contact us if you have any concerns";
     alert(this.state.email_detail.to_email);
     //emailjs.send("service_butcq7q","template_hze4n1q");
-   emailjs.sendForm('default_service', 'template_hze4n1q', this.state.email_detail, 'user_1gGBVVnvE3daK48L8HMlW')
-      .then((result) => {
-          console.log(result.text);
-          alert(result.text);
-      }, (error) => {
-          console.log(error.text);
-          alert(error.text);
-      });
-      alert('ukiiuioiu');
+  //  emailjs.sendForm('service_butcq7q', 'template_hze4n1q', this.state.email_detail, 'user_1gGBVVnvE3daK48L8HMlW')
+  //     .then((result) => {
+  //         console.log(result.text);
+  //         alert(result.text);
+  //     }, (error) => {
+  //         console.log(error.text);
+  //         alert(error.text);
+  //     });
+  //     alert('ukiiuioiu');
+
+  const serviceID = 'default_service';
+  const templateID = 'template_hze4n1q';
+
+  emailjs.sendForm(serviceID, templateID, this)
+   .then(() => {
+     //btn.value = 'Send Email';
+     alert('Sent!');
+   }, (err) => {
+     //btn.value = 'Send Email';
+     alert(JSON.stringify(err));
+   });
 
   }
 

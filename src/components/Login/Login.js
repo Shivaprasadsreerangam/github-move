@@ -24,9 +24,66 @@ class Login extends Component {
            errors: {},
            formSubmitted: false, // Indicates submit status of login form
            loading: false, // Indicates in progress state of login form
-           loginname:''
+           loginname:'',
+           resetPwd:false,
+           defaultPwd:'N',
+           currentPwd:'',
+           newPwd:'',
+           confirmPwd:''
             
         }
+    }
+   
+    
+    onResetThePwd=(e) =>{
+        e.preventDefault();
+    
+        this.setState(
+            {
+                resetPwd:!this.state.resetPwd
+
+            });
+    }
+
+    sendemail=(e)=>{
+       
+        var pass = '';
+            var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
+                    'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+            var i=0;
+              
+            for (i = 1; i <= 8; i++) {
+                var char = Math.floor(Math.random()
+                            * str.length + 1);
+                  
+                pass += str.charAt(char)
+            }
+            alert(pass);
+        
+            let res=  Axios.post("http://localhost:3002/sendNewPwd",{uname: this.state.uname,pwd:pass});
+    }
+
+    changePassword=(e)=>{
+        if(this.state.newPwd!==this.state.confirmPwd)
+        {
+            alert("New Password and confirm Password are not matched");
+        }
+        else
+        {
+            Axios.post("http://localhost:3002/updateNewPwd",{uname: this.state.uname,pwd:this.state.newPwd});
+          
+            this.setState(
+                {
+                    defaultPwd:'N',
+                    resetPwd:false
+    
+                });
+          
+                alert("chnage the password");
+            
+            
+        }
+
     }
     onClickListener=(e) =>{
         e.preventDefault();
@@ -65,11 +122,36 @@ class Login extends Component {
 
     if (isEmpty(errors)) {
         try{
+            
             let res= await  Axios.post("http://localhost:3002/login",{uname: this.state.uname,psw:this.state.psw,});
              if(!res.data[0]){
-                alert("Invalid User name and password");
+                let wrongPwd=await  Axios.post("http://localhost:3002/checkInvalidAttemepts",{uname: this.state.uname,psw:this.state.psw,});
+                if(wrongPwd.data[0].invalid_logins <3){
+                    alert(await wrongPwd.data[0].invalid_logins+" invalid login attempts");
+                }
+                else if(wrongPwd.data[0].invalid_logins >2){
+                    alert("Account is locked");
+                }
+                
+                else{
+                    alert("Invalid User name and password");
+                }
+                
              }
-           
+             else if(res.data[0].invalid_logins >2){
+
+                alert("Account is locked");
+             }
+             else if(res.data[0].default_password=='Y')
+             {
+                this.setState(
+                    {
+                        defaultPwd:res.data[0].default_password
+        
+                    });
+              
+             }
+            else{
             let userName=await res.data[0].name;
             let id=await res.data[0].id;
             let email_id=await res.data[0].email_id;
@@ -81,7 +163,20 @@ class Login extends Component {
                 alert("user is expired on "+userExpire.data[0].user_expiry_date+". Please contact us for renewl");
             }
                
-            else{
+            else
+            {
+               // let default_pwd= await  Axios.post("http://localhost:3002/default_password",{uname: this.state.uname,psw:this.state.psw,});
+                // alert()
+                // if(default_pwd.data[0].default_password=='Y')
+                // { this.setState={
+                //      defaultPwd:'Y'
+
+                //              }
+                     
+                // }
+                //else{
+
+             Axios.post("http://localhost:3002/updateInvalidLogin",{uname: this.state.uname,psw:this.state.psw,});
             
             global.userName=userName;
             global.id=id;
@@ -89,8 +184,10 @@ class Login extends Component {
             global.hospital_id=hospital_id;
             global.role=role;
             }
+        }
              
-         }
+        }
+        // }
          catch(e){   
     
          }
@@ -150,17 +247,7 @@ class Login extends Component {
            
            alert("Invalid user name or password"); 
          } 
-         //else {
-        //     //this.onClickListener(); 
-        //     alert(global.userName);
-            
-        //     //this.onClickListener(!this.formSubmitted); 
-        //     this.setState={
-        //         formSubmitted:true
-        //     }
-       
-            
-        // }
+      
         
 
     }
@@ -168,6 +255,104 @@ class Login extends Component {
     render() {
         if (!global.userName)
             {
+           if(this.state.resetPwd) 
+           {return(
+               <div>
+                   <Navbar/> <h1>{global.userName}</h1>
+                   <div  className="LoginPage">
+                <form onSubmit={this.login}>
+                    
+                     <div class="img1">
+                         <img src={logo} alt="Logo" width='350'height='200' align="center"/> 
+                        <br></br>
+                        <label htmlFor="name"><b>Username:</b></label> 
+                        <input type="text" id ="LoginUsername"
+                            onChange={e=>{
+                                this.setState(
+                                    {
+                                        uname:e.target.value
+
+                                    } );
+                                }} 
+                        placeholder="Enter Email ID"  name="uname" required/> <br></br>
+                       
+                    </div>
+                 
+                       
+                        
+                </form>
+                <button type="submit" onClick={this.sendemail}>Reset The Password</button><br></br>
+                <button type="submit" id='submit3' onClick={this.onResetThePwd}>Login </button><br></br>
+            </div>
+               </div>);
+             
+           } 
+           else if (this.state.defaultPwd=='Y') 
+           {
+            return(
+                <div>
+                    <Navbar/> <h1>{global.userName}</h1>
+                    <div  className="LoginPage">
+                 <form onSubmit={this.login}>
+                     
+                      <div class="img1">
+                          <img src={logo} alt="Logo" width='350'height='200' align="center"/> 
+                         <br></br>
+                         <label htmlFor="name"><b>Username:</b></label> 
+                         <input type="text" id ="LoginUsername"
+                             onChange={e=>{
+                                 this.setState(
+                                     {
+                                         uname:e.target.value
+ 
+                                     } );
+                                 }} 
+                         placeholder="Enter Email ID"  name="uname" required/> <br></br>
+
+<label for="psw"><b>current Password:</b></label><b></b>
+                        <input type="password"  id ="LoginUsername"
+                            onChange={e=>{
+                                this.setState(
+                                    {
+                                        currentPwd:e.target.value
+
+                                    } );
+                                }} 
+                        placeholder="Enter Password" size="50" name="psw" required/><br></br>
+                        
+                        <label for="psw"><b>New Password:</b></label><b></b>
+                        <input type="password"  id ="LoginUsername"
+                            onChange={e=>{
+                                this.setState(
+                                    {
+                                        newPwd:e.target.value
+
+                                    } );
+                                }} 
+                        placeholder="Enter Password" size="50" name="psw" required/><br></br>
+                     </div>
+                  
+                     <label for="psw"><b>Confirm Password:</b></label><b></b>
+                        <input type="password"  id ="LoginUsername"
+                            onChange={e=>{
+                                this.setState(
+                                    {
+                                        confirmPwd:e.target.value
+
+                                    } );
+                                }} 
+                        placeholder="Enter Password" size="50" name="psw" required/><br></br>
+                         
+                 </form>
+                 <button type="submit" onClick={this.changePassword}>Change Password</button><br></br>
+                 <button type="submit" id='submit3' onClick={this.onResetThePwd}>Login </button><br></br>
+             </div>
+                </div>);
+              
+
+           }
+           else
+           { 
         return (
         
           <div>
@@ -213,16 +398,19 @@ Functional — voice disorders that result from improper or inefficient use of t
                         <button type="submit" onClick={this.onClickListener}>Login</button><br></br>
                         <label>
                             <input type="checkbox" checked="checked" name="remember"/> Remember me
-                        </label>
+                        </label><br></br>
+                        
                     </div>
                  
                        
                         
                 </form>
-          
+                <button type="submit" id='submit3' onClick={this.onResetThePwd}>Reset the Password</button><br></br>
             </div>
+            
             </div>
         )
+                            }
     }
     else{
         return(
