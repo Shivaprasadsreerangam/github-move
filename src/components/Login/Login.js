@@ -60,7 +60,7 @@ class Login extends Component {
             }
             alert(pass);
         
-            let res=  Axios.post("http://localhost:3002/sendNewPwd",{uname: this.state.uname,pwd:pass});
+            Axios.post("https://spiel123.herokuapp.com/sendNewPwd",{uname: this.state.uname,pwd:pass});
     }
 
     changePassword=(e)=>{
@@ -70,7 +70,7 @@ class Login extends Component {
         }
         else
         {
-            Axios.post("http://localhost:3002/updateNewPwd",{uname: this.state.uname,pwd:this.state.newPwd});
+            Axios.post("https://spiel123.herokuapp.com/updateNewPwd",{uname: this.state.uname,pwd:this.state.newPwd});
           
             this.setState(
                 {
@@ -123,9 +123,9 @@ class Login extends Component {
     if (isEmpty(errors)) {
         try{
             
-            let res= await  Axios.post("http://localhost:3002/login",{uname: this.state.uname,psw:this.state.psw,});
+            let res= await  Axios.post("https://spiel123.herokuapp.com/login",{uname: this.state.uname,psw:this.state.psw,});
              if(!res.data[0]){
-                let wrongPwd=await  Axios.post("http://localhost:3002/checkInvalidAttemepts",{uname: this.state.uname,psw:this.state.psw,});
+                let wrongPwd=await  Axios.post("https://spiel123.herokuapp.com/checkInvalidAttemepts",{uname: this.state.uname,psw:this.state.psw,});
                 if(wrongPwd.data[0].invalid_logins <3){
                     alert(await wrongPwd.data[0].invalid_logins+" invalid login attempts");
                 }
@@ -142,7 +142,7 @@ class Login extends Component {
 
                 alert("Account is locked");
              }
-             else if(res.data[0].default_password=='Y')
+             else if(res.data[0].default_password==='Y')
              {
                 this.setState(
                     {
@@ -158,14 +158,14 @@ class Login extends Component {
             let hospital_id=await res.data[0].hospital_id;
             let role=await res.data[0].role;
         
-            let userExpire= await  Axios.post("http://localhost:3002/userExpire",{uname: this.state.uname,psw:this.state.psw,});
+            let userExpire= await  Axios.post("https://spiel123.herokuapp.com/userExpire",{uname: this.state.uname,psw:this.state.psw,});
             if(userExpire.data[0]){
                 alert("user is expired on "+userExpire.data[0].user_expiry_date+". Please contact us for renewl");
             }
                
             else
             {
-               // let default_pwd= await  Axios.post("http://localhost:3002/default_password",{uname: this.state.uname,psw:this.state.psw,});
+               // let default_pwd= await  Axios.post("https://spiel123.herokuapp.com/default_password",{uname: this.state.uname,psw:this.state.psw,});
                 // alert()
                 // if(default_pwd.data[0].default_password=='Y')
                 // { this.setState={
@@ -176,7 +176,7 @@ class Login extends Component {
                 // }
                 //else{
 
-             Axios.post("http://localhost:3002/updateInvalidLogin",{uname: this.state.uname,psw:this.state.psw,});
+            // Axios.post("https://spiel123.herokuapp.com/updateInvalidLogin",{uname: this.state.uname,psw:this.state.psw,});
             
             global.userName=userName;
             global.id=id;
@@ -192,7 +192,7 @@ class Login extends Component {
     
          }
 
-         Axios.post("http://localhost:3002/insertLoginDetail",{login_id:global.id,email_id:global.email_id,hospital_id:global.hospital_id
+         Axios.post("https://spiel123.herokuapp.com/insertLoginDetail",{login_id:global.id,email_id:global.email_id,hospital_id:global.hospital_id
         }).then((response)=>{
             this.setState({PatientDetails:response.data})
         }
@@ -287,7 +287,7 @@ class Login extends Component {
                </div>);
              
            } 
-           else if (this.state.defaultPwd=='Y') 
+           else if (this.state.defaultPwd==='Y') 
            {
             return(
                 <div>
