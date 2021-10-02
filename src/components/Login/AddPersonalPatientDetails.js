@@ -44,7 +44,7 @@ class AddPersonalPatientDetails extends Component {
     }
     if (this.props.patient_id) {
 
-      Axios.post("http://localhost:3002/patientdetails_1", {
+      Axios.post("https://spiel123.herokuapp.com/patientdetails_1", {
         patient_id: this.props.patient_id
       }).then((response) => {
         this.setState({ PatientAllDetails: response.data })
@@ -73,7 +73,7 @@ class AddPersonalPatientDetails extends Component {
 
 
 
-    Axios.post("http://localhost:3002/doctordetails", {
+    Axios.post("https://spiel123.herokuapp.com/doctordetails", {
       hospital_id: global.hospital_id,
     }).then((response) => {
       this.setState({ doctordetails: response.data })
@@ -81,7 +81,7 @@ class AddPersonalPatientDetails extends Component {
       // handle error
       alert(error);
     })
-    Axios.post("http://localhost:3002/disorderdetails", {
+    Axios.post("https://spiel123.herokuapp.com/disorderdetails", {
       hospital_id: global.hospital_id,
       user_id:global.user_id,
     }).then((response) => {
@@ -494,7 +494,6 @@ class AddPersonalPatientDetails extends Component {
     else if (this.state.assignment_type === '3') {
 
       return (<div>
-       
         <Language_disorder first_name={this.state.first_name}
           middle_name={this.state.middle_name}
           last_name={this.state.last_name}
