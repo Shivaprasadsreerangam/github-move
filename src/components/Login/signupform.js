@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+  import React, { Component } from 'react';
 // import { Form, FormGroup, FormControl, ControlLabel, Button, Grid, Row, Col } from 'react-bootstrap';
  import "./signup.css";
  import Axios from "axios";
@@ -28,7 +28,7 @@
       
  
 
-Axios.post("http://192.168.0.18:3002/disorderdetails",{hospital_id:global.hospital_id,
+Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.hospital_id,
 }).then((response)=>{
     this.setState({disorderDetails:response.data})
 } ).catch(function (error) {
@@ -38,7 +38,7 @@ Axios.post("http://192.168.0.18:3002/disorderdetails",{hospital_id:global.hospit
      }
      onClickListener=()=>{
 
-        Axios.post("http://192.168.0.18:3002/CheckHospital",{hospital_name:this.state.hName,
+        Axios.post("https://spiel123.herokuapp.com/CheckHospital",{hospital_name:this.state.hName,
     }).then((response)=>{
         this.setState({hosiptal_details:response.data})
         alert(response.data);
@@ -61,7 +61,7 @@ Axios.post("http://192.168.0.18:3002/disorderdetails",{hospital_id:global.hospit
 
         
           
-        Axios.post("http://192.168.0.18:3002/createAccount",{uName:this.state.uName,mName:this.state.mName,lName:this.state.lName,hName:this.state.hName,duration:this.state.duration,duration1:this.state.duration1,disorder:this.state.disorder,
+        Axios.post("https://spiel123.herokuapp.com/createAccount",{uName:this.state.uName,mName:this.state.mName,lName:this.state.lName,hName:this.state.hName,duration:this.state.duration,duration1:this.state.duration1,disorder:this.state.disorder,
         Emaild:this.state.Emaild,Phno:this.state.Phno,hospital_id:global.hospital_id,nusers:this.state.nusers
         }).then((response)=>{
             this.setState({doctordetails:response.data})
