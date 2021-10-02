@@ -1,7 +1,5 @@
 import { React, Component } from "react";
 import ReactTooltip from 'react-tooltip';
-//import Popup from "reactjs-popup";
-import Popup from "./Popup";
 import './AddPatientDetails.css'
 import Axios from 'axios';
 class language_disorder extends Component {
@@ -72,7 +70,7 @@ class language_disorder extends Component {
       quality_of_life:'',
       verbal_performance:'',
       non_verbal_performance:'',
-      auditory_processing:'',
+      diagnosis_confirmed_suspected:'',
       language_comprehension:'',
       vocabulary:'',
       digtit_span:'',
@@ -95,7 +93,7 @@ class language_disorder extends Component {
   }
   onClickListener = () => {
     alert("entered");
-    Axios.post("http://localhost:3002/insertLanguageDisorderPatientDetails", {
+    Axios.post("https://spiel123.herokuapp.com/insertLanguageDisorderPatientDetails", {
       first_name: this.props.first_name,
       middle_name: this.props.middle_name,
       last_name: this.props.last_name,
@@ -142,7 +140,6 @@ class language_disorder extends Component {
       language_delay_suspected :this.state.language_delay_suspected ,
       language_delay_secondary_disorder  :this.state.language_delay_secondary_disorder  ,
       consq_language_delay_secondary_disorder  :this.state.consq_language_delay_secondary_disorder  ,
-      diagnosis_confirmed_suspected:this.state.diagnosis_confirmed_suspected,
       Meta_linguistic_skills:''
     }).then(() => {
       alert("successfully Inserted patient details");
@@ -518,7 +515,7 @@ class language_disorder extends Component {
 
                 </select>
                 {
-                  (this.state.client_assessed_disorder_specific_tool == 'Yes') ?
+                  (this.state.client_assessed_disorder_specific_tool === 'Yes') ?
                     (<div>
 
                       <label> What is the disorder suspected?</label>
