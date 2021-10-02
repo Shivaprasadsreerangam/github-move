@@ -60,7 +60,7 @@ class WelcomePage extends Component {
     }
 
     onClickListener=() =>{
-        Axios.post("http://localhost:3002/insert",{
+        Axios.post("https://spiel123.herokuapp.com/insert",{
         patient_id:this.props.patient_id,
         first_name:this.props.first_name,
         middle_name:this.props.middle_name,
