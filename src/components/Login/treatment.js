@@ -2,7 +2,7 @@ import { Component } from "react";
 import Axios from "axios";
 import SpinWheelGame from "./spinWheelGame";
 import MemoryGame from "./MemoryGame";
-import memoryCardGame from "./memoryCardGame";
+
 
 
 class treatment extends Component {
@@ -16,7 +16,7 @@ class treatment extends Component {
         button_value:'',
     }
   
-    Axios.post("http://192.168.0.18:3002/treatment",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
+    Axios.post("https://spiel123.herokuapp.com/treatment",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
          }).then((response)=>{
              this.setState({treatmentDetails:response.data})
          }
@@ -41,7 +41,7 @@ class treatment extends Component {
 
             } );
             //alert(this.props.patient_id,this.props.disorder_id)
-        Axios.post("http://192.168.0.18:3002/treatmentSteps",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
+        Axios.post("https://spiel123.herokuapp.com/treatmentSteps",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
     }).then((response)=>{
         this.setState({treatmentSteps:response.data})
     }
