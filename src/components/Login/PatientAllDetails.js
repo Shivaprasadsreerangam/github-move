@@ -17,7 +17,7 @@ class PatientAllDetails extends Component {
         }
 
 
-        Axios.post("http://localhost:3002/getpatientdetails", {
+        Axios.post("https://spiel123.herokuapp.com/getpatientdetails", {
             patient_id: this.props.patient_id
         }).then((response) => {
             this.setState({ PatientAllDetails: response.data })
@@ -27,7 +27,7 @@ class PatientAllDetails extends Component {
             alert(error);
         })
 
-        Axios.post("http://localhost:3002/patientdetails_1", {
+        Axios.post("https://spiel123.herokuapp.com/patientdetails_1", {
             hospital_id: global.hospital_id, patient_id: this.props.patient_id
         }).then((response) => {
             this.setState({ PatientfullDetails: response.data })
@@ -37,7 +37,7 @@ class PatientAllDetails extends Component {
             alert(error);
         })
 
-        Axios.post("http://localhost:3002/patientdetails_2", {
+        Axios.post("https://spiel123.herokuapp.com/patientdetails_2", {
             hospital_id: global.hospital_id, patient_id: this.props.patient_id
         }).then((response) => {
             this.setState({ ArticulationPatientDetails_1: response.data })
@@ -48,7 +48,7 @@ class PatientAllDetails extends Component {
         })
 
 
-        Axios.post("http://localhost:3002/getArticulationPatientDetails", {
+        Axios.post("https://spiel123.herokuapp.com/getArticulationPatientDetails", {
             patient_id: this.props.patient_id
         }).then((response) => {
             this.setState({ ArticulationPatientDetails: response.data })
@@ -58,7 +58,7 @@ class PatientAllDetails extends Component {
             alert(error);
         })
 
-        Axios.post("http://localhost:3002/getFluencyPatientDetails", {
+        Axios.post("https://spiel123.herokuapp.com/getFluencyPatientDetails", {
             patient_id: this.props.patient_id
         }).then((response) => {
             this.setState({ FluencyPatientDetails: response.data })
@@ -68,7 +68,7 @@ class PatientAllDetails extends Component {
             alert(error);
         })
 
-        Axios.post("http://localhost:3002/getChildLanguageDisorderPatientDetails", {
+        Axios.post("https://spiel123.herokuapp.com/getChildLanguageDisorderPatientDetails", {
             patient_id: this.props.patient_id,
             hospital_id:global.hospital_id
         }).then((response) => {
@@ -79,7 +79,7 @@ class PatientAllDetails extends Component {
             alert(error);
         })
 
-        Axios.post("http://localhost:3002/getAudultLanguageDisorderPatientDetails", {
+        Axios.post("https://spiel123.herokuapp.com/getAudultLanguageDisorderPatientDetails", {
             patient_id: this.props.patient_id,
             hospital_id:global.hospital_id
         }).then((response) => {
