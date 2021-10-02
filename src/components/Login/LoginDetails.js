@@ -9,7 +9,7 @@ class LoginDetails extends Component{
         }
      
             
-        Axios.post("http://localhost:3002/fetchLoginDetails",{user_id:global.id,
+        Axios.post("https://spiel123.herokuapp.com/fetchLoginDetails",{user_id:global.id,
     }).then((response)=>{
         this.setState({login_details:response.data})
     } ).catch(function (error) {
