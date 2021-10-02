@@ -29,23 +29,14 @@ class FluencyDisorder extends Component {
             nonstuttered_longest_duration:'',
             nonstuttered_average_duration:'',
             nonstuttered_longest_length:'',
-            nonstuttered_average_duration:'',
             Naturalness_rating_scale:'',
-            language_changes:'',
-            language:'',
-            code_switching_noticed:'',
-            test_materials:'',
-            psychological_evaluation:'',
-            diagnosis_confirmed_suspected:'',
-            Suspected_Diagnostic:'',
-            Confirmed_Diagnosis:''
-            
-
+            code_switching_noticed:'',    
+            cause_neurogenic_disorder:''  
         }
     }
     onClickListener = () => {
         alert("entered");
-        Axios.post("http://localhost:3002/insertFluencyPatientDetails", {
+        Axios.post("https://spiel123.herokuapp.com/insertFluencyPatientDetails", {
           first_name: this.props.first_name,
           middle_name: this.props.middle_name,
           last_name: this.props.last_name,
@@ -59,7 +50,7 @@ class FluencyDisorder extends Component {
           RelationShip: this.props.RelationShip,
           email: this.props.email,
           contact_no: this.props.contact_no,
-          cause_neurogenic_disorder:this.state.	cause_neurogenic_disorder, 
+          cause_neurogenic_disorder:this.state.cause_neurogenic_disorder, 
             family_history:this.state.family_history, 
             contacted_stutterers:this.state.contacted_stutterers, 
             primary_features_observed:this.state.primary_features_observed, 
