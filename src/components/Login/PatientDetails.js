@@ -20,7 +20,7 @@ class SideBar extends Component {
          delete_patient_id: '',
 
       }
-      Axios.post("http://localhost:3002/patientdetails", {
+      Axios.post("https://spiel123.herokuapp.com/patientdetails", {
          hospital_id: global.hospital_id
       }).then((response) => {
          this.setState({ PatientDetails: response.data })
@@ -36,7 +36,7 @@ class SideBar extends Component {
    delete_patient_details = () => {
   
 
-      Axios.post("http://localhost:3002/deletePatientDetails", {
+      Axios.post("https://spiel123.herokuapp.com/deletePatientDetails", {
          hospital_id: global.hospital_id, patient_id: this.state.delete_patient_id
       }).then((response) => {
           this.setState({ delete_patient_id: '' })
@@ -52,7 +52,7 @@ class SideBar extends Component {
          alert(error);
       })
 
-      Axios.post("http://localhost:3002/patientdetails", {
+      Axios.post("https://spiel123.herokuapp.com/patientdetails", {
          hospital_id: global.hospital_id
       }).then((response) => {
          this.setState({ PatientDetails: response.data })
