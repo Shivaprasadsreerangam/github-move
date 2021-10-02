@@ -1,12 +1,9 @@
 import React from "react";
 import { Component } from "react";
 import Axios from 'axios';
-import emailjs from 'emailjs-com';
-//import smtp from 'smtp.js'
-
 import Popup from "./Popup";
-// import { withRouter } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+
+
 class Articulation extends Component {
     constructor(props) {
       super(props)
@@ -35,6 +32,7 @@ class Articulation extends Component {
         showPopup: false,
         visitedPopup:false,
         email_detail:[],
+        errors_pattern:''
       }
 
   
@@ -54,7 +52,7 @@ class Articulation extends Component {
 
       });
      
-    Axios.post("http://localhost:3002/articulationSoundsAges", {
+    Axios.post("https://spiel123.herokuapp.com/articulationSoundsAges", {
       user_id: global.id, dirthdayDate: this.props.birthday
     }).then((response) => {
       this.setState({ articulationSoundsAges: response.data })
@@ -86,7 +84,7 @@ class Articulation extends Component {
 
   onClickListener = () => {
 
-    Axios.post("http://localhost:3002/insertArticulationPatientDetails", {
+    Axios.post("https://spiel123.herokuapp.com/insertArticulationPatientDetails", {
       first_name: this.props.first_name,
       middle_name: this.props.middle_name,
       last_name: this.props.last_name,
@@ -151,36 +149,7 @@ class Articulation extends Component {
   //       // alert(message);
   //   });
   // }
-  sendanEmail = () => {
-    this.state.email_detail.name=this.props.first_name;
-    this.state.email_detail.to_email=this.props.email;
-    this.state.email_detail.subject="Patient details has been provided";
-    this.state.email_detail.message="Please contact us if you have any concerns";
-    alert(this.state.email_detail.to_email);
-    //emailjs.send("service_butcq7q","template_hze4n1q");
-  //  emailjs.sendForm('service_butcq7q', 'template_hze4n1q', this.state.email_detail, 'user_1gGBVVnvE3daK48L8HMlW')
-  //     .then((result) => {
-  //         console.log(result.text);
-  //         alert(result.text);
-  //     }, (error) => {
-  //         console.log(error.text);
-  //         alert(error.text);
-  //     });
-  //     alert('ukiiuioiu');
 
-  const serviceID = 'default_service';
-  const templateID = 'template_hze4n1q';
-
-  emailjs.sendForm(serviceID, templateID, this)
-   .then(() => {
-     //btn.value = 'Send Email';
-     alert('Sent!');
-   }, (err) => {
-     //btn.value = 'Send Email';
-     alert(JSON.stringify(err));
-   });
-
-  }
 
 
 
