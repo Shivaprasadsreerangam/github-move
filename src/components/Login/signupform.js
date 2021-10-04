@@ -58,11 +58,23 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
         //     });
 
         //  }
+       
+        var pass = '';
+        var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
+                'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+        var i=0;
+          
+        for (i = 1; i <= 8; i++) {
+            var char = Math.floor(Math.random()
+                        * str.length + 1);
+              
+            pass += str.charAt(char)
+        }
 
         
-        alert("create Account");  
+    
         Axios.post("https://spiel123.herokuapp.com/createAccount",{uName:this.state.uName,mName:this.state.mName,lName:this.state.lName,hName:this.state.hName,duration:this.state.duration,duration1:this.state.duration1,disorder:this.state.disorder,
-        Emaild:this.state.Emaild,Phno:this.state.Phno,hospital_id:global.hospital_id,nusers:this.state.nusers
+        Emaild:this.state.Emaild,Phno:this.state.Phno,hospital_id:global.hospital_id,nusers:this.state.nusers,pwd:pass
         }).then((response)=>{
             this.setState({doctordetails:response.data})
         } ).catch(function (error) {
