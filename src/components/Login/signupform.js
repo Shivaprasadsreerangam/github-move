@@ -36,9 +36,11 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
   alert(error);
 })
      }
-     onClickListener=()=>{
-
-        Axios.post("https://spiel123.herokuapp.com/CheckHospital",{hospital_name:this.state.hName,
+    checkHospital=(e)=>{
+       this.setState={
+         hName:e.target.value
+       }
+      Axios.post("https://spiel123.herokuapp.com/CheckHospital",{hospital_name:this.state.hName,
     }).then((response)=>{
         this.setState({hosiptal_details:response.data})
         alert(response.data);
@@ -48,6 +50,10 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
       // handle error
       alert(error);
     })
+     }
+     onClickListener=()=>{
+
+    
     
         //  if (!this.hosiptal_details)
         //  {
@@ -83,9 +89,9 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
         })
        if (!global.hospital_id)
        {
-        alert("Payment page in progress");
+        //alert("Payment page in progress");
         alert("Acount has been created" )
-        alert("defualt password page has been sent registered Email (it is in progress)");
+        alert("defualt password page has been sent to registered Email ");
       
        }
        else
@@ -140,14 +146,7 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
           /> <br></br>
           {(global.role==='spiel')?
            (<div> <input  name="hName" placeholder="Enter Hosiptal Name" class="form-control"  type="text" id ="APDtext" 
-            onChange={e=>{
-              this.setState(
-                  {
-                    hName:e.target.value,
-                   
-
-                  } );
-              }}
+           onChange={this.checkHospital}
           /> <br></br>
           
           <select name="duration" class="form-control"  type="text" id ="APDtext" onChange={e=>{
