@@ -60,7 +60,7 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
         //  }
 
         
-          
+        alert("create Account");  
         Axios.post("https://spiel123.herokuapp.com/createAccount",{uName:this.state.uName,mName:this.state.mName,lName:this.state.lName,hName:this.state.hName,duration:this.state.duration,duration1:this.state.duration1,disorder:this.state.disorder,
         Emaild:this.state.Emaild,Phno:this.state.Phno,hospital_id:global.hospital_id,nusers:this.state.nusers
         }).then((response)=>{
