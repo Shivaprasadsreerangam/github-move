@@ -23,6 +23,7 @@
             Emaild:'',
             Phno:'',
             payment_option:'',
+            hospital_exist:''
            
          }
       
@@ -43,6 +44,13 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
       Axios.post("https://spiel123.herokuapp.com/CheckHospital",{hospital_name:this.state.hName,
     }).then((response)=>{
         this.setState({hosiptal_details:response.data})
+        if (!this.hosiptal_details)
+        {
+          this.state={
+            hospital_exist:"Account alredy created for this hospital"
+          }
+        }
+        
         alert(response.data);
        
       
@@ -55,15 +63,17 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
 
     
     
-        //  if (!this.hosiptal_details)
-        //  {
+         if (!this.hosiptal_details)
+         {
             
-        //     alert( "Account alredy created for this hospital ",this.state.hosiptal_details.hospital_name)
-        //     this.setState({
-        //         hosiptal_details:[]  
-        //     });
+            alert( "Account alredy created for this hospital ",this.state.hosiptal_details.hospital_name)
+            this.setState({
+                hosiptal_details:[]  
+            });
 
-        //  }
+         }
+       else
+       {
        
         var pass = '';
         var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
@@ -99,7 +109,7 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
         alert("Acount has been created" )
        }
 
-      
+       }
      }
      selectedValue=(e)=>{
          this.state (
@@ -157,6 +167,7 @@ Axios.post("https://spiel123.herokuapp.com/disorderdetails",{hospital_id:global.
 
                   } );
               }}> 
+                <p style="background-color:Tomato;">{this.state.hospital_exist}</p>
           <option>Select Duration</option>   
           <option>Years</option>
           <option>month</option>
