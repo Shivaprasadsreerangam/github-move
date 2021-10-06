@@ -1,4 +1,4 @@
-  import React, { Component } from 'react';
+import React, { Component } from 'react';
 // import { Form, FormGroup, FormControl, ControlLabel, Button, Grid, Row, Col } from 'react-bootstrap';
 import "./signup.css";
 import Axios from "axios";
@@ -19,11 +19,20 @@ class SignupForm extends Component {
       //disorder:[],
       hName1: '',
       hosiptal_details: [],
+      email_details: [],
       disorderDetails: [],
       Emaild: '',
       Phno: '',
       payment_option: '',
       exist_hospital: '',
+      exist_emailID: '',
+      hospital_count: 0,
+      email_count: 0,
+      emptyEmailId: '',
+      emptyHospital: '',
+      emptyUname: '',
+      emptyLname: '',
+      emptyDuration: '',
 
     }
 
@@ -40,8 +49,11 @@ class SignupForm extends Component {
   }
 
   checkHospital = (e) => {
-
+    this.setState({ hName: e.target.value })
     this.state = { hName: e.target.value }
+
+    this.setState({ emptyHospital: "" })
+    this.state = { emptyHospital: "" }
 
 
     Axios.post("https://spiel123.herokuapp.com/CheckHospital", {
@@ -49,45 +61,102 @@ class SignupForm extends Component {
     }).then((response) => {
       this.setState({ hosiptal_details: response.data })
 
+
       if (this.state.hosiptal_details[0].count_1 > 0) {
-        this.setState({ exist_hospital: "Hospital already exist" })
-        this.state = { exist_hospital: "Hospital already exist" }
+
+        this.setState({ exist_hospital: "Hospital already exist", hospital_count: 1 })
+        this.state = { exist_hospital: "Hospital already exist", hospital_count: 1 }
       }
       else {
-        this.setState({ exist_hospital: "" })
-        this.state = { exist_hospital: "" }
+        this.setState({ exist_hospital: "", hospital_count: 0 })
+        this.state = { exist_hospital: "", hospital_count: 0 }
 
       }
 
+      this.state = { hName: e.target.value }
+      this.setState({ hName: e.target.value })
+    }).catch(function (error) {
+      // handle error
+      alert(error);
+    })
+  }
+  checkEmailID = (e) => {
+    this.state = { Emaild: e.target.value }
+    this.setState({ Emaild: e.target.value })
+    this.setState({ emptyEmailId: "" })
 
+    Axios.post("https://spiel123.herokuapp.com/CheckEmaild", {
+      Emaild: this.state.Emaild,
+    }).then((response) => {
+      this.setState({ email_details: response.data })
+
+      if (this.state.email_details[0].count_1 > 0) {
+        this.setState({ exist_emailID: "Email already exist", email_count: 1 })
+        this.state = { exist_emailID: "Email already exist", email_count: 1 }
+      }
+      else {
+        this.setState({ exist_emailID: "", email_count: 0 })
+        this.state = { exist_emailID: "", email_count: 0 }
+
+      }
+
+      this.state = { Emaild: e.target.value }
     }).catch(function (error) {
       // handle error
       alert(error);
     })
 
 
-
-
-
-
-
   }
   onClickListener = () => {
+    if (this.state.Emaild) {
+      this.setState({ emptyEmailId: "" })
+
+    }
+    if (this.state.hName) {
+      this.setState({ emptyHospital: "" })
+    }
+    if (this.state.uName) {
+
+      this.setState({ emptyUname: "" })
+    }
+    if (this.state.lName) {
+      this.setState({ emptyLname: "" })
+    }
+    if (this.state.duration) {
+      this.setState({ emptyDuration: "" })
+    }
 
 
 
-    //  if (!this.hosiptal_details)
-    //  {
+    if (!this.state.Emaild) {
 
-    //     alert( "Account alredy created for this hospital ",this.state.hosiptal_details.hospital_name)
-    //     this.setState({
-    //         hosiptal_details:[]  
-    //     });
+      this.state = { emptyEmailId: "email Id should not be empty" }
+      this.setState({ emptyEmailId: "Email Id should not be empty" })
 
-    //  }
-    if (this.state.hosiptal_details[0].count_1 > 0) {
+    }
+    else if ((!this.state.hName) && (global.role === 'spiel')) {
+      this.state = { emptyHospital: "Hospital Name  should not be empty" }
+      this.setState({ emptyHospital: "Hospital Name  should not be empty" })
+
+    }
+    else if (!this.state.uName) {
+
+      this.setState({ emptyUname: "User name should not be empty" })
+    }
+    else if (!this.state.lName) {
+      this.setState({ emptyLname: "Last name should not be empty" })
+    }
+    else if (!this.state.duration) {
+      this.setState({ emptyDuration: "Please select duration" })
+    }
+
+    else if (this.state.hospital_count > 0) {
       alert("Hospital already exist, so cann't create new user/account on exist hospital");
 
+    }
+    else if (this.state.email_count > 0) {
+      alert("Email Id  is already exist, Please provide another email ID");
     }
     else {
       var pass = '';
@@ -138,8 +207,10 @@ class SignupForm extends Component {
     return (
 
       <div class="PatinetDetails1">
-        <h1>Provide d etails</h1>
-        <input name="fName" placeholder="Enter User" class="form-control" type="text" id="APDtext"
+        <h1>Create New Account/User</h1>
+
+
+        <input name="fName" placeholder="Enter User" class="form-control" type="text" id="APDtext" required="true"
           onChange={e => {
             this.setState(
               {
@@ -148,7 +219,10 @@ class SignupForm extends Component {
 
               });
           }}
+
         /><br></br>
+        <font COLOR="#ff0000">
+          <p>{this.state.emptyUname}</p> </font>
         <input name="mName" placeholder="Enter Middle name" class="form-control" type="text" id="APDtext"
           onChange={e => {
             this.setState(
@@ -159,6 +233,7 @@ class SignupForm extends Component {
               });
           }}
         /><br></br>
+
         <input name="lName" placeholder="Last Name" class="form-control" type="text" id="APDtext"
           onChange={e => {
             this.setState(
@@ -169,6 +244,8 @@ class SignupForm extends Component {
               });
           }}
         /> <br></br>
+        <font COLOR="#ff0000">
+          <p>{this.state.emptyLname}</p> </font>
         {(global.role === 'spiel') ?
           (<div> <input name="hName" placeholder="Enter Hosiptal Name" class="form-control" type="text" id="APDtext"
             onChange={this.checkHospital}
@@ -176,6 +253,8 @@ class SignupForm extends Component {
           /> <br></br>
             <font COLOR="#ff0000">
               <p>{this.state.exist_hospital}</p> </font>
+            <font COLOR="#ff0000">
+              <p>{this.state.emptyHospital}</p> </font>
 
             <select name="duration" class="form-control" type="text" id="APDtext" onChange={e => {
               this.setState(
@@ -191,6 +270,8 @@ class SignupForm extends Component {
               <option>days</option>
               <option>unlimited</option>
             </select> <br></br>
+            <font COLOR="#ff0000">
+              <p>{this.state.emptyDuration}</p> </font>
             {(this.state.duration !== 'unlimited') ?
               (<input name="duration1" placeholder="Enter duration" class="form-control" type="text" id="APDtext"
                 onChange={e => {
@@ -245,16 +326,12 @@ class SignupForm extends Component {
 
 
 
-        <input name="Emaild" placeholder="Enter EmailID" class="form-control" type="text" id="APDtext"
-          onChange={e => {
-            this.setState(
-              {
-                Emaild: e.target.value,
-
-
-              });
-          }} />  <br></br>
-
+        <input name="Emaild" placeholder="Enter EmailID" class="form-control" type="text" id="APDtext" onChange={this.checkEmailID}
+        />  <br></br>
+        <font COLOR="#ff0000">
+          <p>{this.state.exist_emailID}</p> </font>
+        <font COLOR="#ff0000">
+          <p>{this.state.emptyEmailId}</p> </font>
         <input name="Phno" placeholder="Enter Phone Number" class="form-control" type="text" id="APDtext"
           onChange={e => {
             this.setState(
