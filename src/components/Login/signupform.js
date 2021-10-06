@@ -309,7 +309,8 @@ class SignupForm extends Component {
           options={[
             'Voice',
             'Articulation',
-            'Aural Rehabilitation',
+            'language_disoder',
+            'Fluency'
 
           ]}
         />
