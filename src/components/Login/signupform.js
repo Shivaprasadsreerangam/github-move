@@ -184,7 +184,7 @@ class SignupForm extends Component {
       })
       if (!global.hospital_id) {
         //alert("Payment page in progress");
-        alert("Acount has been created")
+        alert("Acount has been created and Default password sent to your email ID")
         //alert("defualt password page has been sent registered Email (it is in progress)");
 
       }
