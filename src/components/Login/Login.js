@@ -58,7 +58,7 @@ class Login extends Component {
                   
                 pass += str.charAt(char)
             }
-            alert(pass);
+            //alert(pass);
         
             Axios.post("https://spiel123.herokuapp.com/sendNewPwd",{uname: this.state.uname,pwd:pass});
     }
