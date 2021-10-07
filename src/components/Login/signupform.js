@@ -23,6 +23,7 @@ class SignupForm extends Component {
       disorderDetails: [],
       Emaild: '',
       Phno: '',
+      validPhoneNumber: '',
       payment_option: '',
       exist_hospital: '',
       exist_emailID: '',
@@ -33,7 +34,9 @@ class SignupForm extends Component {
       emptyUname: '',
       emptyLname: '',
       emptyDuration: '',
-
+      emptyPhoneNumber: '',
+      disorder: '',
+      emptyDisorder: ''
     }
 
 
@@ -46,6 +49,21 @@ class SignupForm extends Component {
       // handle error
       alert(error);
     })
+  }
+  validPhoneNumber = (e) => {
+    var phoneno = /^\d{10}$/;
+    this.setState({ Phno: e.target.value })
+    if (e.target.value.match(phoneno)) {
+      this.setState({ validPhoneNumber: "" })
+    }
+    else {
+      this.setState({ validPhoneNumber: "Invalid Phone number" })
+
+    }
+    this.setState({ Phno: e.target.value, emptyPhoneNumber: '' })
+
+
+
   }
 
   checkHospital = (e) => {
@@ -126,6 +144,9 @@ class SignupForm extends Component {
     if (this.state.duration) {
       this.setState({ emptyDuration: "" })
     }
+    else if (this.state.disorder) {
+      this.setState({ emptyDisorder: "" })
+    }
 
 
 
@@ -149,6 +170,13 @@ class SignupForm extends Component {
     }
     else if (!this.state.duration) {
       this.setState({ emptyDuration: "Please select duration" })
+    }
+    // else if(!this.state.disorder)
+    // {
+    //   this.setState({emptyDisorder:"Please select disorder option"})
+    // }
+    else if (!this.state.Phno) {
+      this.setState({ emptyPhoneNumber: "Phone number should not be empty" })
     }
 
     else if (this.state.hospital_count > 0) {
@@ -196,6 +224,7 @@ class SignupForm extends Component {
 
   }
   selectedValue = (e) => {
+    alert(e.target.value);
     this.state(
       {
         disorder: e.target.value
@@ -204,11 +233,18 @@ class SignupForm extends Component {
 
   }
   render() {
-    return (
-
+    return (<div>
+      <div class="PatinetDetails">
+        <br></br>
+        <h2 className="PD" >Create New Account/User</h2>
+      </div>
       <div class="PatinetDetails1">
-        <h1>Create New Account/User</h1>
-
+        <input name="Emaild" placeholder="Enter EmailID" class="form-control" type="text" id="APDtext" onChange={this.checkEmailID}
+        />  <br></br>
+        <font COLOR="#ff0000">
+          <p>{this.state.exist_emailID}</p> </font>
+        <font COLOR="#ff0000">
+          <p>{this.state.emptyEmailId}</p> </font>
 
         <input name="fName" placeholder="Enter User" class="form-control" type="text" id="APDtext" required="true"
           onChange={e => {
@@ -300,9 +336,9 @@ class SignupForm extends Component {
 
             <br></br></div>) : (<div></div>)}
 
-        <Multiselect
+        {/* <Multiselect
           isObject={false}
-          onChange={this.state.selectedValue}
+          onChange={this.selectedValue}
           onRemove={function noRefCheck() { }}
           onSearch={function noRefCheck() { }}
           onSelect={function noRefCheck() { }}
@@ -314,6 +350,8 @@ class SignupForm extends Component {
 
           ]}
         />
+         <font COLOR="#ff0000">
+              <p>{this.state.emptyDisorder}</p> </font> */}
         {/* <Multiselect> options=
 {this.state.disorderDetails}
 </Multiselect> */}
@@ -323,28 +361,20 @@ class SignupForm extends Component {
     'Voice',
     'Articulation',
     'Aural Rehabilitation'] } /> */}
-
-
-
-
-        <input name="Emaild" placeholder="Enter EmailID" class="form-control" type="text" id="APDtext" onChange={this.checkEmailID}
-        />  <br></br>
-        <font COLOR="#ff0000">
-          <p>{this.state.exist_emailID}</p> </font>
-        <font COLOR="#ff0000">
-          <p>{this.state.emptyEmailId}</p> </font>
+        <label>+91 </label>
         <input name="Phno" placeholder="Enter Phone Number" class="form-control" type="text" id="APDtext"
-          onChange={e => {
-            this.setState(
-              {
-                Phno: e.target.value,
+          onChange={this.validPhoneNumber} /> <br></br>
+        <font COLOR="#ff0000">
+          <p>{this.state.emptyPhoneNumber}</p> </font>
+
+        <font COLOR="#ff0000">
+          <p>{this.state.validPhoneNumber}</p> </font> <br></br>
 
 
-              });
-          }} /> <br></br>
 
         <button id='submit3' onClick={this.onClickListener}>sumbit</button>
       </div>
+    </div>
     );
   }
 }
