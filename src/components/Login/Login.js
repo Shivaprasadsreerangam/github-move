@@ -61,6 +61,8 @@ class Login extends Component {
             //alert(pass);
         
             Axios.post("https://spiel123.herokuapp.com/sendNewPwd",{uname: this.state.uname,pwd:pass});
+       
+           alert("default password has been send to your emailId");
     }
 
     changePassword=(e)=>{
