@@ -164,7 +164,7 @@ class AddPersonalPatientDetails extends Component {
                 <div class="col-md-4 inputGroupContainer">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input name="first_name" placeholder="First Name" class="form-control" type="text" id="APDtext" value={this.state.first_name}
+                    <input name="first_name" placeholder="First Name" class="form-control" type="text" id="APDtext" value={this.state.first_name} required
                       onChange={e => {
                         this.setState(
                           {
@@ -200,7 +200,7 @@ class AddPersonalPatientDetails extends Component {
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input name="last_name" placeholder="Last Name" class="form-control" type="text" id="APDtext" value={this.state.last_name}
+                      <input name="last_name" placeholder="Last Name" class="form-control" type="text" id="APDtext" value={this.state.last_name} required
                         onChange={e => {
                           this.setState(
                             {
@@ -216,7 +216,7 @@ class AddPersonalPatientDetails extends Component {
                 </div>
                 <div >
                   <label class="col-md-4 control-label" >Gender   </label> <br></br>
-                  <select name="Gender" id="APDtext" value={this.state.Gender}
+                  <select name="Gender" id="APDtext" value={this.state.Gender} required
                     onChange={e => {
                       this.setState(
                         {
@@ -286,7 +286,7 @@ class AddPersonalPatientDetails extends Component {
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                       <input name="user_name" placeholder="Username" class="form-control" type="text" id="APDtext" value={this.state.user_name}
-                        onChange={e => {
+                        required onChange={e => {
                           this.setState(
                             {
                               user_name: e.target.value
@@ -326,7 +326,7 @@ class AddPersonalPatientDetails extends Component {
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                       <input name="LastName" placeholder="Last Name" class="form-control" type="text" id="APDtext" value={this.state.LastName}
-                        onChange={e => {
+                        required onChange={e => {
                           this.setState(
                             {
                               LastName: e.target.value
@@ -342,7 +342,7 @@ class AddPersonalPatientDetails extends Component {
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input name="RelationShip" placeholder="RelationShip " class="form-control" type="text" id="APDtext" value={this.state.RelationShip}
+                      <input name="RelationShip" placeholder="RelationShip " class="form-control" type="text" id="APDtext" value={this.state.RelationShip} required
                         onChange={e => {
                           this.setState(
                             {
@@ -360,7 +360,7 @@ class AddPersonalPatientDetails extends Component {
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                      <input name="email" placeholder="E-Mail Address" class="form-control" type="text" id="APDtext" value={this.state.email}
+                      <input name="email" placeholder="E-Mail Address" class="form-control" type="text" id="APDtext" value={this.state.email} required
                         onChange={e => {
                           this.setState(
                             {
@@ -381,7 +381,7 @@ class AddPersonalPatientDetails extends Component {
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                      <input name="contact_no" placeholder="(639)" class="form-control" type="text" id="APDtext" value={this.state.contact_no}
+                      <input name="contact_no" placeholder="(639)" class="form-control" type="text" id="APDtext" value={this.state.contact_no} required
                         onChange={e => {
                           this.setState(
                             {
