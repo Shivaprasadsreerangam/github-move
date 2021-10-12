@@ -181,7 +181,7 @@ class Login extends Component {
             // Axios.post("https://spiel123.herokuapp.com/updateInvalidLogin",{uname: this.state.uname,psw:this.state.psw,});
             
             global.userName=userName;
-            global.id=id;
+            global.user_id=id;
             global.email_id=email_id;
             global.hospital_id=hospital_id;
             global.role=role;
