@@ -36,6 +36,7 @@ class AddPersonalPatientDetails extends Component {
       loading: false, // Indicates in progress state of login form
       assignment_type: '',
       doctor: '',
+      emptyDisorder:'',
       doctordetails: [],
       disorderDetails: [],
       PatientAllDetails: []
@@ -81,6 +82,7 @@ class AddPersonalPatientDetails extends Component {
       // handle error
       alert(error);
     })
+
     Axios.post("https://spiel123.herokuapp.com/disorderdetails", {
       hospital_id: global.hospital_id,
       user_id:global.user_id,
@@ -97,6 +99,44 @@ class AddPersonalPatientDetails extends Component {
         formSubmitted: formSubmitted
       }
     )
+
+  }
+  validPhoneNumber = (e) => {
+    var phoneno = /^\d{10}$/;
+    this.setState({ Phno: e.target.value })
+    if (e.target.value.match(phoneno)) {
+      this.setState({ validPhoneNumber: "" })
+    }
+    else {
+      this.setState({ validPhoneNumber: "Invalid Phone number" })
+
+    }
+    this.setState({ Phno: e.target.value, emptyPhoneNumber: '' })
+
+
+
+  }
+  onNextPage = (e) =>
+  {
+    if(!this.state.disorder)
+    {
+      
+      this.setState({emptyDisorder:"Please select Disorder"})
+      alert(this.state.emptyDisorder)
+    }
+    else if(!this.state.email ||!this.state.first_name ||!this.state.last_name ||!this.state.Gender||!this.state.birthday
+      ||!this.state.Primary_Complaint||!this.state.user_name||!this.state.LastName||!this.state.RelationShip||!this.state.email||this.state.contact_no)
+    {
+      alert("Please fill all the values");
+    }
+    else
+    {
+    this.setState(
+          {
+            assignment_type: this.state.disorder
+
+          });
+        }
 
   }
   onSubmit = (e) => {
@@ -249,6 +289,9 @@ class AddPersonalPatientDetails extends Component {
                   </select>
                 </div >
 
+                <font COLOR="#ff0000">
+              <p>{this.state.emptyDisorder}</p> </font>
+
                 <div>
                   <label> Date of Birth </label><br></br>
                   <input type="date" id="birthday" name="birthday" value={this.state.birthday} required onChange={e => {
@@ -265,7 +308,7 @@ class AddPersonalPatientDetails extends Component {
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                       <textarea name="Primary_Complaint" placeholder="Primary Complaint " rows="4" cols="50" id="APDtext" value={this.state.Primary_Complaint}
-                        onChange={e => {
+                        required onChange={e => {
                           this.setState(
                             {
                               Primary_Complaint: e.target.value
@@ -381,14 +424,15 @@ class AddPersonalPatientDetails extends Component {
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                      <input name="contact_no" placeholder="(639)" class="form-control" type="text" id="APDtext" value={this.state.contact_no} required
-                        onChange={e => {
-                          this.setState(
-                            {
-                              contact_no: e.target.value
+                      <input name="contact_no" placeholder="(+91)" class="form-control" type="text" id="APDtext" value={this.state.contact_no} required
+                        onChange={this.validPhoneNumber}
+                        // onChange={e => {
+                        //   this.setState(
+                        //     {
+                        //       contact_no: e.target.value
 
-                            });
-                        }}
+                        //     });
+                        // }}
 
                       />
 
@@ -424,13 +468,14 @@ class AddPersonalPatientDetails extends Component {
 
 
               <button type="submit" id='submit1'
-                onClick={e => {
-                  this.setState(
-                    {
-                      assignment_type: this.state.disorder
+              onClick={this.onNextPage}
+                // onClick={e => {
+                //   this.setState(
+                //     {
+                //       assignment_type: this.state.disorder
 
-                    });
-                }}
+                //     });
+                // }}
 
               >Next</button><br></br>
 
