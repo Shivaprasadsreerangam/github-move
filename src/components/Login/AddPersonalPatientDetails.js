@@ -39,7 +39,10 @@ class AddPersonalPatientDetails extends Component {
       emptyDisorder:'',
       doctordetails: [],
       disorderDetails: [],
-      PatientAllDetails: []
+      PatientAllDetails: [],
+      InValidPhoneNumber:'',
+      emptyGender:'',
+      emptyPhoneNumber:'',
 
 
     }
@@ -102,32 +105,55 @@ class AddPersonalPatientDetails extends Component {
 
   }
   validPhoneNumber = (e) => {
+
     var phoneno = /^\d{10}$/;
-    this.setState({ Phno: e.target.value })
+    this.setState({ contact_no: e.target.value })
     if (e.target.value.match(phoneno)) {
-      this.setState({ validPhoneNumber: "" })
+      this.setState({ InValidPhoneNumber:'' })
+      this.setState({ contact_no: e.target.value })
+     
+      alert(this.state.contact_no);
     }
     else {
-      this.setState({ validPhoneNumber: "Invalid Phone number" })
+      this.setState({ InValidPhoneNumber: "Invalid Phone number" })
+     
 
     }
-    this.setState({ Phno: e.target.value, emptyPhoneNumber: '' })
+    
 
 
 
   }
   onNextPage = (e) =>
   {
-    if(!this.state.disorder)
+  if(!this.state.disorder)
     {
       
       this.setState({emptyDisorder:"Please select Disorder"})
-      alert(this.state.emptyDisorder)
+      e.preventDefault();
+      
     }
-    else if(!this.state.email ||!this.state.first_name ||!this.state.last_name ||!this.state.Gender||!this.state.birthday
-      ||!this.state.Primary_Complaint||!this.state.user_name||!this.state.LastName||!this.state.RelationShip||!this.state.email||this.state.contact_no)
+    else if(!this.state.Gender)
     {
+      this.setState({emptyDisorder:''})
+      this.setState({emptyGender:"Please select Gender"})
+      e.preventDefault();
+      
+    }
+  
+    else if(!this.state.email ||!this.state.first_name ||!this.state.last_name ||!this.state.birthday
+      ||!this.state.Primary_Complaint||!this.state.user_name||!this.state.LastName||!this.state.RelationShip||!this.state.email||!this.state.contact_no)
+    {
+      this.setState({emptyDisorder:''})
+      this.setState({emptyGender:''})
       alert("Please fill all the values");
+     
+    }
+    
+    else if (this.state.InValidPhoneNumber){
+      alert(this.state.InValidPhoneNumber);
+      e.preventDefault();
+
     }
     else
     {
@@ -139,41 +165,41 @@ class AddPersonalPatientDetails extends Component {
         }
 
   }
-  onSubmit = (e) => {
-    e.preventDefault();
+  // onSubmit = (e) => {
+  //   e.preventDefault();
 
-    // let PatientDetails={
-    //   first_name:this.state.first_name,
-    //   last_name:this.state.last_name,
-    //   Gender:this.state.Gender
-    // }
-    global.login = true;
-    //this.state.assignment_type='Voice';
+  //   // let PatientDetails={
+  //   //   first_name:this.state.first_name,
+  //   //   last_name:this.state.last_name,
+  //   //   Gender:this.state.Gender
+  //   // }
+  //   global.login = true;
+  //   //this.state.assignment_type='Voice';
 
-    //const JsonData=JSON.stringify(PatientDetails);
-    alert("calling Node Js");
+  //   //const JsonData=JSON.stringify(PatientDetails);
+  //   alert("calling Node Js");
 
-    if (this.state.assignment_type === 1) {
-      alert(this.state.disorder);
-      return true
-
-
-    }
-    else if (this.state.assignment_type === 'Ear') {
-      return true
-
-    } else {
-
-      return false
-
-    }
+  //   if (this.state.assignment_type === 1) {
+  //     alert(this.state.disorder);
+  //     return true
 
 
+  //   }
+  //   else if (this.state.assignment_type === 'Ear') {
+  //     return true
+
+  //   } else {
+
+  //     return false
+
+  //   }
 
 
 
 
-  }
+
+
+  // }
   updateResults(results) {
     this.setState({assignment_type:results});
  }
@@ -270,6 +296,8 @@ class AddPersonalPatientDetails extends Component {
                     <option>Fe Male</option>
 
                   </select>
+                  <font COLOR="#ff0000">
+              <p>{this.state.emptyGender}</p> </font>
                 </div >
                 <div >
                   <label class="col-md-4 control-label">Disorder   </label><br></br>
@@ -435,7 +463,8 @@ class AddPersonalPatientDetails extends Component {
                         // }}
 
                       />
-
+                      <font COLOR="#ff0000">
+              <p>{this.state.InValidPhoneNumber}</p> </font> <br></br>
                       <div >
                         <label class="col-md-4 control-label">Doctor   </label><br></br>
                         <select name="doctor" width="100" id="APDtext" value={this.state.doctor}
@@ -507,6 +536,7 @@ class AddPersonalPatientDetails extends Component {
             contact_no={this.state.contact_no}
             doctor={this.state.doctor}
             PatientAllDetails={this.state.PatientAllDetails}
+            updateResults={this.updateResults.bind(this)}
           />
           <h2 className="Welcome">{this.state.disorder}</h2>
           <h2>HI</h2>
