@@ -109,6 +109,12 @@ class WelcomePage extends Component {
       })
        
         }
+        
+  goBack = (e) => {
+  
+    this.props.updateResults('');
+
+  }
     render()
     { 
         return(
@@ -557,6 +563,7 @@ class WelcomePage extends Component {
                 
             </div>
             <button type="submit" id ='submit2' onClick={this.onClickListener}>Submit</button><br></br>
+            <button type="submit" id='submit1' onClick={this.goBack}>Back</button><br></br> 
             </div>
         );
     }
