@@ -136,7 +136,7 @@ class SideBar extends Component {
                                  });
                            }}
 
-                        >Start Treatment</button></td>
+                        >Start Therapy</button></td>
 
                         <td><button type="submit" id='submit3'      onClick={e => {
                               this.setState(
