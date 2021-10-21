@@ -91,12 +91,18 @@ class PatientAllDetails extends Component {
         })
 
     }
+    goBack = (e) => {
+  
+        this.props.updateResults('');
+    
+      }
 
     render() {
         if (this.props.disorder_id === 1) {
             return (
                 <div className="PatinetDetails1">
                     <h1 className="PD">Patient Details</h1>
+                    <button type="submit" id ='submit3' class="previous" onClick={this.goBack}>&laquo; Previous</button><br></br>
                     {this.state.PatientAllDetails.map(PatientData =>
                         <table id='table2' >
 
@@ -159,6 +165,7 @@ class PatientAllDetails extends Component {
         else {
             return (<div className="PatinetDetails1"  >
                 <h1 className="PD">Patient Details</h1>
+                <button type="submit" id ='submit3' class="previous" onClick={this.goBack}>&laquo; Previous</button><br></br>
                 {this.state.PatientfullDetails.map(PatientData =>
                     <table id='table2' >
 
