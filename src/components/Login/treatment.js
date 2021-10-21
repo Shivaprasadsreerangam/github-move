@@ -278,6 +278,11 @@ class treatment extends Component {
         }
 
     }
+    goBack = (e) => {
+  
+        this.props.updateResults('');
+    
+      }
 
     onClickListener=(e) =>{
      
@@ -306,11 +311,12 @@ class treatment extends Component {
     render()
     {
         //alert("Language disorder");
-     
+        
     
         if(this.props.disorder_id===3)
         {return(
             <div className='PatientDetails1'><h1>Language Disorder  Therapy</h1>
+
             {
                 ( this.state.language_fourth_page==='Y')?(
                     <div>
@@ -526,6 +532,10 @@ class treatment extends Component {
            
             (this.state.multi_domain_goal==='Y' && this.state.language_second_page==='Y')?
             (<div>
+                <button type="submit" id='submit3' class="previous" onClick={this.backToFirstPage}>&laquo; Previous</button>
+                 {(this.state.third_page_visited==='Y')?
+                  (<button type="submit" id="submit3" class="next" onClick={this.goToThirdPage}>Next &raquo;</button>):(<div></div>)}
+                  <br></br>
                 
                  <table align="left" className="left"  > 
             <tr>
@@ -572,7 +582,11 @@ class treatment extends Component {
             
             }
           { (this.state.language_first_page==='Y')?
-           ( <div><table align="left" className="left" width="20px"  > 
+           ( <div>
+               <br></br>
+               <button type="submit" id ='submit3' class="previous" onClick={this.goBack}>&laquo; Previous</button>
+               <br></br>
+               <table align="left" className="left" width="20px"  > 
             <tr >
                 <button type="submit"    onClick={e => {
                     this.setState(
@@ -682,15 +696,6 @@ class treatment extends Component {
     
      </table>  */}
     
-   
-      
-    
-    
-
-
-
-
-
 
 </div>
 
