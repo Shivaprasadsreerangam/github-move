@@ -32,6 +32,14 @@ class SideBar extends Component {
          alert(error);
       })
 
+
+   }
+
+   updateResults(results) {
+      this.setState({patient_id:results,
+                   disorder_id:results,
+                   edit_patient_id:results,
+                   show_Patient_id:results});
    }
    delete_patient_details = () => {
   
@@ -75,6 +83,7 @@ class SideBar extends Component {
                <h2 className="PD" >Patient details</h2>
                {/* {this.state.PatientDetails.map(PatientData => <h2>{PatientData.patient_fname}</h2>)} */}
                {(this.state.delete_patient_id)?(<div>{this.delete_patient_details(this.state.delete_patient_id)}</div>):(<div>
+                  
 
                <div ><table align="center" className="center">
                   {/* <th>Patient Id</th> */}
@@ -163,7 +172,8 @@ class SideBar extends Component {
       else if (this.state.edit_patient_id) {
 
          return (<div><h1>edit</h1>
-            <AddPersonalPatientDetails patient_id={this.state.edit_patient_id} />
+            <AddPersonalPatientDetails patient_id={this.state.edit_patient_id}
+            updateResults={this.updateResults.bind(this)} />
          </div>
          );
 
@@ -171,7 +181,8 @@ class SideBar extends Component {
       else if ((this.state.show_Patient_id)) {
          return (<div>
             <PatientAllDetails patient_id={this.state.patient_id}
-               disorder_id={this.state.disorder_id} />
+               disorder_id={this.state.disorder_id} 
+               updateResults={this.updateResults.bind(this)}/>
          </div>
          );
 
@@ -181,17 +192,13 @@ class SideBar extends Component {
          return (<div className="PatientDetails">
 
             <Treatment disorder_id={this.state.disorder_id}
-               patient_id={this.state.patient_id} />
+               patient_id={this.state.patient_id}
+               updateResults={this.updateResults.bind(this)} />
 
          </div>);
 
 
       }
-
-
-
-
-
 
 
 
