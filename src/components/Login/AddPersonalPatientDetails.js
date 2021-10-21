@@ -104,19 +104,17 @@ class AddPersonalPatientDetails extends Component {
     )
 
   }
-  validPhoneNumber = (e) => {
+  validPhoneNumber = () => {
 
     var phoneno = /^\d{10}$/;
-    this.setState({ contact_no: e.target.value })
-    if (e.target.value.match(phoneno)) {
+  
+   
+    if (this.state.contact_no.match(phoneno)) {
       this.setState({ InValidPhoneNumber:'' })
-      this.setState({ contact_no: e.target.value })
-     
-      alert(this.state.contact_no);
+      //this.setState({ contact_no: e.target.value  
     }
-    else {
+    else if(this.state.contact_no) {
       this.setState({ InValidPhoneNumber: "Invalid Phone number" })
-     
 
     }
     
@@ -126,6 +124,7 @@ class AddPersonalPatientDetails extends Component {
   }
   onNextPage = (e) =>
   {
+    this.validPhoneNumber();
   if(!this.state.disorder)
     {
       
@@ -149,20 +148,19 @@ class AddPersonalPatientDetails extends Component {
       alert("Please fill all the values");
      
     }
-    
     else if (this.state.InValidPhoneNumber){
-      alert(this.state.InValidPhoneNumber);
-      e.preventDefault();
-
-    }
-    else
-    {
+      
+        //e.preventDefault();
+      }
+      else
+      {
     this.setState(
           {
             assignment_type: this.state.disorder
 
           });
         }
+        
 
   }
   // onSubmit = (e) => {
@@ -293,7 +291,7 @@ class AddPersonalPatientDetails extends Component {
                   >
                     <option value="Gender">select Gender</option>
                     <option>Male</option>
-                    <option>Fe Male</option>
+                    <option>Female</option>
 
                   </select>
                   <font COLOR="#ff0000">
@@ -352,7 +350,7 @@ class AddPersonalPatientDetails extends Component {
               <div id="Parent">
                 <b><h2>Parent/ Caretaker Details </h2></b>
                 <div class="form-group">
-                  <label class="col-md-4 control-label">Username</label>
+                  <label class="col-md-4 control-label">First name</label>
                   <div >
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -453,14 +451,14 @@ class AddPersonalPatientDetails extends Component {
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                       <input name="contact_no" placeholder="(+91)" class="form-control" type="text" id="APDtext" value={this.state.contact_no} required
-                        onChange={this.validPhoneNumber}
-                        // onChange={e => {
-                        //   this.setState(
-                        //     {
-                        //       contact_no: e.target.value
+                       
+                        onChange={e => {
+                          this.setState(
+                            {
+                              contact_no: e.target.value
 
-                        //     });
-                        // }}
+                            });
+                        }}
 
                       />
                       <font COLOR="#ff0000">
@@ -475,7 +473,7 @@ class AddPersonalPatientDetails extends Component {
 
                               });
                           }}  >
-                          <option>Please assign doctor</option>
+                          <option>Please assign Consultant</option>
                           {this.state.doctordetails.map(doctorname =>
                             <option>{doctorname.doctor_name}</option>
 
