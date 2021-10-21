@@ -2,8 +2,8 @@ import { Component } from "react";
 import Axios from "axios";
 import SpinWheelGame from "./spinWheelGame";
 //import MemoryGame from "./MemoryGame";
-import MemoryCardGame from "./memoryCardGame";
-import { PatientData } from "./PatientData";
+//import MemoryCardGame from "./memoryCardGame";
+//import { PatientData } from "./PatientData";
 
 
 
@@ -38,7 +38,9 @@ class treatment extends Component {
         long_term_goal:'',
         second_page_visited:'N',
         third_page_visited:'N',
-        fourth_page_visited:'N'
+        fourth_page_visited:'N',
+        patient_update_age:'',
+        patient_age:''
         
     }
   
@@ -181,6 +183,101 @@ class treatment extends Component {
             
         )
     }
+    longTermGoalsAgeWise=(e)=>{
+        e.preventDefault();
+        
+        this.setState({
+            
+            language_developmentalProgram_longTerm:[],
+            language_expressiveLanguage_longTerm:[],
+            multi_playSemantics_longTerm:[],
+            multi_pragmaticInteraction_longTerm:[],
+           
+        })
+        if(this.state.patient_update_age)
+        {
+        
+            Axios.post("https://spiel123.herokuapp.com/languageDevelopmentalProgramLongTermAgeWise",{patient_update_age:this.state.patient_update_age
+        }).then((response)=>{
+            this.setState({language_developmentalProgram_longTerm:response.data})
+        }
+        ).catch(function (error) {
+           // handle error
+           alert(error);
+         }) 
+        
+        
+     Axios.post("https://spiel123.herokuapp.com/languageExpressiveLanguageLongTermAgeWise",{patient_update_age:this.state.patient_update_age
+    }).then((response)=>{
+        this.setState({language_expressiveLanguage_longTerm:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+  
+     Axios.post("https://spiel123.herokuapp.com/multiPragmaticInteractionLongTermAgeWise",{patient_update_age:this.state.patient_update_age
+    }).then((response)=>{
+        this.setState({multi_pragmaticInteraction_longTerm:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+ 
+     Axios.post("https://spiel123.herokuapp.com/multiplaySemanticsLongTermAgeWise",{patient_update_age:this.state.patient_update_age
+    }).then((response)=>{
+        this.setState({multi_playSemantics_longTerm:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+    
+
+        }
+        else{
+
+            alert(this.state.patient_Dob[0].age)
+            Axios.post("https://spiel123.herokuapp.com/languageDevelopmentalProgramLongTermAgeWise",{patient_update_age:this.state.patient_Dob[0].age
+        }).then((response)=>{
+            this.setState({language_developmentalProgram_longTerm:response.data})
+        }
+        ).catch(function (error) {
+           // handle error
+           alert(error);
+         }) 
+        
+
+     Axios.post("https://spiel123.herokuapp.com/languageExpressiveLanguageLongTermAgeWise",{patient_update_age:this.state.patient_Dob[0].age
+    }).then((response)=>{
+        this.setState({language_expressiveLanguage_longTerm:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+
+     Axios.post("https://spiel123.herokuapp.com/multiPragmaticInteractionLongTermAgeWise",{patient_update_age:this.state.patient_Dob[0].age
+    }).then((response)=>{
+        this.setState({multi_pragmaticInteraction_longTerm:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+
+     Axios.post("https://spiel123.herokuapp.com/multiplaySemanticsLongTermAgeWise",{patient_update_age:this.state.patient_Dob[0].age
+    }).then((response)=>{
+        this.setState({multi_playSemantics_longTerm:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+        }
+
+    }
 
     onClickListener=(e) =>{
      
@@ -263,7 +360,17 @@ class treatment extends Component {
                      <h4>Patient age is {PatientData.age}  months as per birth day {PatientData.patient_dob.slice(0,10)}</h4>
                     )}
                     <br></br>
-                {
+                    <input type="text" placeholder="Please enter the Patient age" value={this.state.patient_update_age} onChange={e=>{
+                                this.setState(
+                                    {
+                                        patient_update_age:e.target.value
+
+                                    } );
+                                }} 
+                           ></input>  <button class="btn1 go"  onClick={this.longTermGoalsAgeWise} >GO</button><br></br>
+                   
+                {  
+
                     (this.state.developmental_program==='Y')?(<div>
                         <table>
                         <tr>
