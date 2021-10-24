@@ -40,18 +40,50 @@ class treatment extends Component {
         third_page_visited:'N',
         fourth_page_visited:'N',
         patient_update_age:'',
-        patient_age:''
+        patient_age:'',
+        voiceShortTermGoals:[],
+        fluencyShortTermGoals:[],
+        voiceShortTermGoal_no:'',
+        voiceTherapyGoals:[],
+        fluencyShortTermGoal_no:'',
+        fluencyTherapyGoals:[]
         
     }
-  
     Axios.post("https://spiel123.herokuapp.com/treatment",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
-         }).then((response)=>{
-             this.setState({treatmentDetails:response.data})
-         }
-         ).catch(function (error) {
-            // handle error
-            alert(error);
-          })
+        }).then((response)=>{
+            this.setState({treatmentDetails:response.data})
+        }
+        ).catch(function (error) {
+        // handle error
+        alert(error);
+        })
+    if(this.props.disorder_id===1)
+    {
+        Axios.post("https://spiel123.herokuapp.com/fetchVoiceShortTermGoals",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
+    }).then((response)=>{
+        this.setState({voiceShortTermGoals:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+
+    }
+    else if(this.props.disorder_id===4)
+    {
+        Axios.post("https://spiel123.herokuapp.com/fetchFluencyShortTermGoals",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
+    }).then((response)=>{
+        this.setState({fluencyShortTermGoals:response.data})
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     }) 
+
+    }
+   else if(this.props.disorder_id===3)
+    {
+  
 
           Axios.post("https://spiel123.herokuapp.com/playSemanticsLongTerm",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
         }).then((response)=>{
@@ -88,7 +120,7 @@ class treatment extends Component {
            // handle error
            alert(error);
          }) 
-
+      
          Axios.post("https://spiel123.herokuapp.com/fetchPatientDob",{disorder_id:this.props.disorder_id,patient_id:this.props.patient_id
         }).then((response)=>{
             this.setState({patient_Dob:response.data})
@@ -97,6 +129,7 @@ class treatment extends Component {
            // handle error
            alert(error);
          }) 
+        }
        
        
        
@@ -104,7 +137,7 @@ class treatment extends Component {
          // alert(this.props.disorder_id,this.props.patient_id);
    
     }
-    shortTermTherapy=(e)=>{
+    languageShortTermTherapy=(e)=>{
         
         this.setState(
             {
@@ -129,7 +162,7 @@ class treatment extends Component {
        
 
     }
-    goToFourthPage=(e)=>
+    languageGoToFourthPage=(e)=>
     {
         this.setState(
             {
@@ -283,6 +316,42 @@ class treatment extends Component {
         this.props.updateResults('');
     
       }
+      fetchVoiceTherapyGoals =(e)=>{
+
+          this.setState({
+              voiceShortTermGoal_no:e.target.value
+
+          })
+         
+          Axios.post("https://spiel123.herokuapp.com/fetchVoiceTherapyGoals",{voiceShortTermGoal_no:e.target.value
+        }).then((response)=>{
+            this.setState({voiceTherapyGoals:response.data,
+                voiceShortTermGoal_no:'Y'})
+        }
+        ).catch(function (error) {
+           // handle error
+           alert(error);
+         })
+
+      }
+
+      fetchFluencyTherapyGoals =(e)=>{
+        this.setState({
+            fluencyShortTermGoal_no:e.target.value
+
+        })
+        Axios.post("https://spiel123.herokuapp.com/fetchFluencyTherapyGoals",{fluencyShortTermGoal_no:e.target.value
+    }).then((response)=>{
+        this.setState({fluencyTherapyGoals:response.data,
+            fluencyShortTermGoal_no:'Y'
+        })
+    }
+    ).catch(function (error) {
+       // handle error
+       alert(error);
+     })
+
+    }
 
     onClickListener=(e) =>{
      
@@ -311,9 +380,64 @@ class treatment extends Component {
     render()
     {
         //alert("Language disorder");
-        
+        if(this.props.disorder_id===1)
+        {
+            return(<div className='PatientDetails1'><h1>Voice  Therapy</h1>
+              {(this.state.voiceShortTermGoal_no)?(<div>
+                <table>
+                        <tr>
+                            
+                            <td><b>Therapy Goals</b></td>
+                            
+                        </tr>
+                        {this.state.voiceTherapyGoals.map(goal =>
+                        <tr width ="150px">
+                        
+                        
+                        <td width="100"> <button type="submit"  value={goal.therapy_goal_no} onClick={this.fetchVoiceTherapyGoals} >
+                        {goal.therapy_goal} </button> </td>
+                        
+                        
+                    </tr>
+                    )}</table>
+
+              </div>):(
+                  <div>
+               <table>
+                        <tr>
+                            
+                            <td><b>short Term Goal</b></td>
+                            
+                        </tr>
+                        {this.state.voiceShortTermGoals.map(goal =>
+                        <tr width ="150px">
+                        
+                        
+                        <td width="100"> <button type="submit"  value={goal.short_term_goal_no} onClick={this.fetchVoiceTherapyGoals} >
+                        {goal.short_term_goal} </button> </td>
+                        
+                        
+                    </tr>
+                    )}</table>
+            
+            </div>)
+        }
+            
+            </div>
+            )
+
+        }
+        else if(this.props.disorder_id===2)
+        {
+            return(<div className='PatientDetails1'><h1>Articlulation  Therapy</h1>
+            
+            
+            
+            </div>)
+
+        }
     
-        if(this.props.disorder_id===3)
+        else if(this.props.disorder_id===3)
         {return(
             <div className='PatientDetails1'><h1>Language Disorder  Therapy</h1>
 
@@ -360,7 +484,7 @@ class treatment extends Component {
                    <br></br>
                    <button type="submit" id ='submit3' class="previous" onClick={this.backToSecondPage}>&laquo; Previous</button>
                    {(this.state.fourth_page_visited==='Y')?
-                  (<button type="submit" id ='submit3' class="next" onClick={this.goToFourthPage}>Next &raquo;</button>):(<div></div>)}
+                  (<button type="submit" id ='submit3' class="next" onClick={this.languageGoToFourthPage}>Next &raquo;</button>):(<div></div>)}
                     <br></br>
                    {this.state.patient_Dob.map(PatientData =>
                      <h4>Patient age is {PatientData.age}  months as per birth day {PatientData.patient_dob.slice(0,10)}</h4>
@@ -390,7 +514,7 @@ class treatment extends Component {
                         
                         <td>{treatment.goal_for}</td>
                         
-                        <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.shortTermTherapy}>
+                        <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.languageShortTermTherapy}>
                         {treatment.long_term_goal} </button> </td>
                         <td>{treatment.start_age}</td>
                         <td>{treatment.end_age}</td>
@@ -417,7 +541,7 @@ class treatment extends Component {
                         
                         <td>{treatment.goal_for}</td>
                         
-                        <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.shortTermTherapy}>
+                        <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.languageShortTermTherapy}>
                         {treatment.long_term_goal} </button> </td>
                         <td>{treatment.start_age}</td>
                         <td>{treatment.end_age}</td>
@@ -443,7 +567,7 @@ class treatment extends Component {
                         
                         <td>{treatment.goal_for}</td>
                         
-                        <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.shortTermTherapy}>
+                        <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.languageShortTermTherapy}>
                         {treatment.long_term_goal} </button> </td>
                         <td>{treatment.start_age}</td>
                         <td>{treatment.end_age}</td>
@@ -469,7 +593,7 @@ class treatment extends Component {
                 
                 <td>{treatment.goal_for}</td>
                 
-                <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.shortTermTherapy}>
+                <td width="100"> <button type="submit" id ='submit3' value={treatment.long_term_goal} onClick={this.languageShortTermTherapy}>
                 {treatment.long_term_goal} </button> </td>
                 <td>{treatment.start_age}</td>
                 <td>{treatment.end_age}</td>
@@ -645,6 +769,51 @@ class treatment extends Component {
             </div>)
           
         }
+        else if(this.props.disorder_id===4)
+        {
+            return(<div className='PatientDetails1'><h1>Fluency Therapy</h1>
+          {(this.state.fluencyShortTermGoal_no)?(<div>
+                <table>
+                        <tr>
+                            
+                            <td><b>Therapy Goals</b></td>
+                            
+                        </tr>
+                        {this.state.fluencyTherapyGoals.map(goal =>
+                        <tr width ="150px">
+                        
+                        
+                        <td width="100"> <button type="submit"  value={goal.therapy_goal_no} onClick={this.fetchVoiceTherapyGoals} >
+                        {goal.therapy_goal} </button> </td>
+                        
+                        
+                    </tr>
+                    )}</table>
+
+              </div>):(
+                  <div>
+               <table>
+                        <tr>
+                            
+                            <td><b>short Term Goal</b></td>
+                            
+                        </tr>
+                        {this.state.fluencyShortTermGoals.map(goal =>
+                        <tr width ="150px">
+                        
+                        
+                        <td width="100"> <button type="submit"  value={goal.short_term_goal_no} onClick={this.fetchFluencyTherapyGoals} >
+                        {goal.short_term_goal} </button> </td>
+                        
+                        
+                    </tr>
+                    )}</table>
+            
+            </div>)
+        }
+            </div>)
+
+        }
        
         else if (!this.state.disorder) {
         return(<div className='PatientDetails1'><h1>Treatment Page </h1>
@@ -696,6 +865,15 @@ class treatment extends Component {
     
      </table>  */}
     
+   
+      
+    
+    
+
+
+
+
+
 
 </div>
 
